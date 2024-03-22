@@ -64,9 +64,7 @@ def try_subdomains(subdomain_list, domain):
             url = "http://" + subdomain + "." + domain
         try:
             request = requests.get(url, timeout=5)
-            if request.status_code == 404:
-                continue
-            else:
+            if request.status_code != 404:
                 subdomains.append(subdomain)
                 print(subdomain)
         except requests.exceptions.RequestException:
