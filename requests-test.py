@@ -1,7 +1,7 @@
-import time
 import requests
 
 
+# Path to file as input, reads the file, splits using newlines and returns the list.
 def file2list(file_path):
     with open(file_path, "r") as f:
         output_list = f.read().split('\n')
@@ -9,6 +9,7 @@ def file2list(file_path):
     return output_list
 
 
+# Takes a list and a file path, joins the list elements with newlines and writes to a file at file path.
 def list2file(input_list, write_path):
     with open(write_path, "w") as f:
         f.write('\n'.join(input_list) + '\n')
@@ -16,6 +17,7 @@ def list2file(input_list, write_path):
     print("Output written to: " + write_path)
 
 
+# Takes a list of domains, makes a get request for each domain, returns a list of responsive domains.
 def try_domains(domain_list):
     UA = {"User-Agent": "Mozilla/5.0 (X11; Linux i686; rv:110.0) Gecko/20100101 Firefox/110.0."}
     responsive_domains = []
@@ -33,6 +35,8 @@ def try_domains(domain_list):
     return responsive_domains
 
 
+# Takes a list of domains and a path to a directory, for each domain opens a file in specified directory
+# and dumps the response from each domain into the file.
 def save_domain_text(domain_list, write_directory):
     UA = {"User-Agent": "Mozilla/5.0 (X11; Linux i686; rv:110.0) Gecko/20100101 Firefox/110.0."}
     for domain in domain_list:
@@ -47,6 +51,8 @@ def save_domain_text(domain_list, write_directory):
     print("Domain text files dumped in:", write_directory)
 
 
+# Takes a list of subdomains and a domain, prepends the subdomain to the domain and returns a list of
+# subdomains that didn't give a 404 response.
 def try_subdomains(subdomain_list, domain):
     subdomains = []
     for subdomain in subdomain_list:
