@@ -3,21 +3,21 @@ import requests
 
 # Path to file as input, reads the file, splits using newlines and returns the list.
 def file2list(file_path):
-    with open(file_path, "r") as f:
-        output_list = f.read().split('\n')
+    with open(file_path, "r") as file:
+        output_list = file.read().split('\n')
     return output_list
 
 
 # Takes a list and a file path, joins the list elements with newlines and writes to a file at file path.
 def list2file(input_list, write_path):
-    with open(write_path, "w") as f:
-        f.write('\n'.join(input_list) + '\n')
-    print("Output written to: " + write_path)
+    with open(write_path, "w") as file:
+        file.write('\n'.join(input_list) + '\n')
+    print(f'Output written to: {write_path}')
 
 
 # Takes a list of domains, makes a get request for each domain, returns a list of responsive domains.
 def try_domains(domain_list):
-    UA = {"User-Agent": "Mozilla/5.0 (X11; Linux i686; rv:110.0) Gecko/20100101 Firefox/110.0."}
+    User_Agent = {"User-Agent": "Mozilla/5.0 (X11; Linux i686; rv:110.0) Gecko/20100101 Firefox/110.0."}
     responsive_domains = []
     for domain in domain_list:
         url = "http://" + domain
@@ -25,27 +25,27 @@ def try_domains(domain_list):
         try:
             # Alternatively requests.head or requests.options for a quicker request
             # (nope, problem is hanging on unresponsive domains, not slow responses)
-            requests.get(url, timeout=5, headers=UA)
+            requests.get(url, timeout=5, headers=User_Agent)
             responsive_domains.append(domain)
             print("Bingo!")
-        except requests.exceptions.RequestException as e:
-            print(e)
+        except requests.exceptions.RequestException as error:
+            print(error)
     return responsive_domains
 
 
 # Takes a list of domains and a path to a directory, for each domain opens a file in specified directory
 # and dumps the response from each domain into the file.
 def save_domain_text(domain_list, write_directory):
-    UA = {"User-Agent": "Mozilla/5.0 (X11; Linux i686; rv:110.0) Gecko/20100101 Firefox/110.0."}
+    User_Agent = {"User-Agent": "Mozilla/5.0 (X11; Linux i686; rv:110.0) Gecko/20100101 Firefox/110.0."}
     for domain in domain_list:
         url = "http://" + domain
         try:
-            request = requests.get(url, headers=UA)
-            with open(write_directory + domain, "w") as f:
-                f.write(request.text)
+            request = requests.get(url, headers=User_Agent)
+            with open(write_directory + domain, "w") as file:
+                file.write(request.text)
         except requests.exceptions.RequestException as error:
             print(error)
-    print("Domain text files dumped in:", write_directory)
+    print(f'Domain text files dumped in: {write_directory}')
 
 
 # Takes a list of subdomains and a domain, prepends the subdomain to the domain and returns a list of
