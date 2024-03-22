@@ -5,7 +5,6 @@ import requests
 def file2list(file_path):
     with open(file_path, "r") as f:
         output_list = f.read().split('\n')
-        f.close()
     return output_list
 
 
@@ -13,7 +12,6 @@ def file2list(file_path):
 def list2file(input_list, write_path):
     with open(write_path, "w") as f:
         f.write('\n'.join(input_list) + '\n')
-        f.close()
     print("Output written to: " + write_path)
 
 
@@ -45,7 +43,6 @@ def save_domain_text(domain_list, write_directory):
             request = requests.get(url, headers=UA)
             with open(write_directory + domain, "w") as f:
                 f.write(request.text)
-                f.close()
         except requests.exceptions.RequestException as error:
             print(error)
     print("Domain text files dumped in:", write_directory)
