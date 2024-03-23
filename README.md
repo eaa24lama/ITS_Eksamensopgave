@@ -11,3 +11,5 @@ Linux environment, WSL2, Debian GNU/Linux 12 (bookworm)
 Python 3.11.2
 Requests 2.28.1
 ```
+
+OBS: Code has likely been refactored for readability and not throughoutly tested before committing.

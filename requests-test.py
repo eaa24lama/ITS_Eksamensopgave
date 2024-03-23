@@ -20,12 +20,11 @@ def try_domains(domain_list):
     User_Agent = {"User-Agent": "Mozilla/5.0 (X11; Linux i686; rv:110.0) Gecko/20100101 Firefox/110.0."}
     responsive_domains = []
     for domain in domain_list:
-        url = "http://" + domain
         print(domain)
         try:
             # Alternatively requests.head or requests.options for a quicker request
             # (nope, problem is hanging on unresponsive domains, not slow responses)
-            requests.get(url, timeout=5, headers=User_Agent)
+            requests.get("http://" + domain, timeout=5, headers=User_Agent)
             responsive_domains.append(domain)
             print("Bingo!")
         except requests.exceptions.RequestException as error:
@@ -38,9 +37,8 @@ def try_domains(domain_list):
 def save_domain_text(domain_list, write_directory):
     User_Agent = {"User-Agent": "Mozilla/5.0 (X11; Linux i686; rv:110.0) Gecko/20100101 Firefox/110.0."}
     for domain in domain_list:
-        url = "http://" + domain
         try:
-            request = requests.get(url, headers=User_Agent)
+            request = requests.get("http://" + domain, headers=User_Agent)
             with open(write_directory + domain, "w") as file:
                 file.write(request.text)
         except requests.exceptions.RequestException as error:
@@ -54,7 +52,7 @@ def try_subdomains(subdomain_list, domain):
     subdomains = []
     for subdomain in subdomain_list:
         # Annoyingly there are atleast one subdomain in the subdomains file that ends with a "."
-        # Making a simple check for "." at the start and end of subdomain to skip if found
+        # Making a simple check for "." at the start and end of subdomain to skip if found.
         if subdomain[0] == "." or subdomain[-1] == ".":
             continue
         else:
