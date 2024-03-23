@@ -12,4 +12,4 @@ Python 3.11.2
 Requests 2.28.1
 ```
 
-OBS: Code has likely been refactored for readability and not throughoutly tested before committing.
+Observe: Code has likely been refactored for readability and not throughoutly tested before committing.
