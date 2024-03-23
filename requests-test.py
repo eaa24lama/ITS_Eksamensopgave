@@ -55,10 +55,8 @@ def try_subdomains(subdomain_list, domain):
         # Making a simple check for "." at the start and end of subdomain to skip if found.
         if subdomain[0] == "." or subdomain[-1] == ".":
             continue
-        else:
-            url = "http://" + subdomain + "." + domain
         try:
-            request = requests.get(url, timeout=5)
+            request = requests.get("http://" + subdomain + '.' + domain, timeout=5)
             if request.status_code != 404:
                 subdomains.append(subdomain)
                 print(subdomain)
