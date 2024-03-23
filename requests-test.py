@@ -81,8 +81,8 @@ def main():
     # Assuming the files are in the same directory as the python script
     domains_path = "list-domains.txt"
     subdomains_path = "subdomains-10000.txt"
-    subdomains_write_path = "responsive-subdomains.txt"
     write_path = "responsive-domains.txt"
+    subdomains_write_path = "responsive-subdomains.txt"
     write_directory = "domain_text/" # Pre-existing directory for simplicity
 
 
